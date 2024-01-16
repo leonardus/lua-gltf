@@ -1,4 +1,6 @@
 # lua-gltf
+## Installation
+Install with [luarocks](https://luarocks.org/): `$ luarocks install lua-gltf`
 ## Usage
 ```lua
 local gltf = require("gltf")
