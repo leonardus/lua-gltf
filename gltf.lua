@@ -218,7 +218,7 @@ function gltf.new(path)
 		asset = json.decode(file)
 	end
 	assert(asset.asset.version:sub(1, 1) == "2", "incompatible glTF version")
-	setmetatable(asset, {bin = bin, basePath = path:sub(1, path:find("/[^/]*$") or 0)})
+	setmetatable(asset, {bin = bin, basePath = path:sub(1, path:find("[/\\][^/\\]*$") or 0)})
 
 	local meta = {}
 	meta.swizzle = {__index = function(t, k)

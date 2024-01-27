@@ -1,6 +1,6 @@
 rockspec_format = "3.0"
 package = "lua-gltf"
-version = "1.0.0-2"
+version = "1.0.1-1"
 description = {
 	summary = "glTF loader",
 	license = "zlib",
@@ -14,7 +14,8 @@ dependencies = {
 	"base64 ~> 1"
 }
 source = {
-	url = "git://github.com/leonardus/lua-gltf"
+	url = "git://github.com/leonardus/lua-gltf",
+	tag = "1.0.1"
 }
 build = {
 	["type"] = "builtin",
