@@ -218,7 +218,28 @@ function gltf.new(path)
 		asset = json.decode(file)
 	end
 	assert(asset.asset.version:sub(1, 1) == "2", "incompatible glTF version")
-	setmetatable(asset, {bin = bin, basePath = path:sub(1, path:find("[/\\][^/\\]*$") or 0)})
+	setmetatable(asset, {
+		bin = bin,
+		basePath = path:sub(1, path:find("[/\\][^/\\]*$") or 0),
+		JSONIndices = {}
+	})
+
+	asset.IndexOf = function(self, object)
+		return getmetatable(self).JSONIndices[object]
+	end
+	local function indexRecurse(t)
+		for i, v in ipairs(t) do
+			if type(i) == "number" and type(v) == "table" then
+				getmetatable(asset).JSONIndices[v] = i - 1
+			end
+		end
+		for _, v in pairs(t) do
+			if type(v) == "table" then
+				indexRecurse(v)
+			end
+		end
+	end
+	indexRecurse(asset)
 
 	local meta = {}
 	meta.swizzle = {__index = function(t, k)
